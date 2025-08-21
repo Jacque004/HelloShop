@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="img/HelloShop.png">
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-10">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <a href="#" class="flex items-center py-4 px-2">
+                            <span class="font-semibold text-gray-500 text-lg">Hello shop</span>
+                        </a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-1">
+                        <a href="#catalogue"
+                            class="py-4 px-2 text-blue-500 border-b-4 border-blue-500 font-semibold">Catalogue</a>
+                        <a href="#about"
+                            class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">À
+                            propos</a>
+                        <a href="#contact"
+                            class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300">Contact</a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-3">
+                    <a href="#cart" class="py-2 px-2 relative">
+                        <i class="fas fa-shopping-cart text-gray-500 text-xl"></i>
+                        <span id="cart-count"
+                            class="absolute -top-1 -right-1 bg-blue-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="outline-none mobile-menu-button">
+                        <i class="fas fa-bars text-gray-500 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hidden mobile-menu">
+            <ul>
+                <li><a href="#catalogue"
+                        class="block text-sm px-2 py-4 text-white bg-blue-500 font-semibold">Catalogue</a></li>
+                <li><a href="#about" class="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300">À
+                        propos</a></li>
+                <li><a href="#contact"
+                        class="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300">Contact</a></li>
+                <li><a href="#cart" class="block text-sm px-2 py-4 hover:bg-blue-500 transition duration-300">Panier</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-blue-500 to-purple-600 py-20">
+        <div class="container mx-auto px-6">
+            <h1 class="text-4xl font-bold text-white mb-2">Artisanat Créatif</h1>
+            <h2 class="text-2xl text-white mb-8">Des objets uniques faits main avec passion</h2>
+            <a href="#catalogue"
+                class="bg-white text-blue-500 font-bold rounded-full py-3 px-8 shadow-lg hover:bg-gray-100 transition duration-300">Découvrir</a>
+        </div>
+    </div>
+
+    <!-- Catalogue Section -->
+    <section id="catalogue" class="py-12 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Notre Catalogue</h2>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center mb-8 gap-2">
+                <button class="filter-btn px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition"
+                    data-category="all">Tous</button>
+                <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition"
+                    data-category="ceramique">Céramique</button>
+                <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition"
+                    data-category="textile">Textile</button>
+                <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition"
+                    data-category="bois">Bois</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="products-container">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4 flex">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-screen overflow-y-auto">
+            <div class="p-4 flex justify-between items-center border-b">
+                <h3 class="text-xl font-bold" id="modal-product-name"></h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6 grid md:grid-cols-2 gap-6">
+                <div>
+                    <img id="modal-main-image" src="" alt="" class="product-detail-image w-full rounded-lg shadow mb-4">
+                    <div id="thumbnails-container" class="flex gap-2 overflow-x-auto py-2">
+                        <!-- Thumbnails will be added here -->
+                    </div>
+                </div>
+                <div>
+                    <p class="text-gray-600 mb-4" id="modal-product-description"></p>
+                    <div class="flex items-center mb-4">
+                        <span class="text-2xl font-bold text-blue-500" id="modal-product-price"></span>
+                        <span class="ml-2 text-sm text-gray-500">TTC</span>
+                    </div>
+                    <div class="mb-4">
+                        <span class="font-semibold">Disponibilité:</span>
+                        <span class="text-green-600 ml-2" id="modal-product-stock"></span>
+                    </div>
+                    <div class="flex items-center mb-6">
+                        <button class="bg-gray-200 px-3 py-1 rounded-l" id="decrease-qty">-</button>
+                        <input type="number" min="1" value="1"
+                            class="w-16 text-center border-t border-b border-gray-200 py-1" id="product-qty">
+                        <button class="bg-gray-200 px-3 py-1 rounded-r" id="increase-qty">+</button>
+                        <button id="add-to-cart-btn"
+                            class="ml-4 bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition">
+                            Ajouter au panier
+                        </button>
+                    </div>
+                    <div class="border-t pt-4">
+                        <h4 class="font-semibold mb-2">Caractéristiques</h4>
+                        <ul class="list-disc pl-5 text-gray-600" id="modal-product-features">
+                            <!-- Features will be added here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Section -->
+    <section id="cart" class="py-12 bg-white hidden">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Votre Panier</h2>
+
+            <div id="cart-empty" class="text-center py-12">
+                <i class="fas fa-shopping-cart text-gray-300 text-5xl mb-4"></i>
+                <p class="text-gray-500 text-xl">Votre panier est vide</p>
+                <a href="#catalogue"
+                    class="mt-4 inline-block bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition">Parcourir
+                    le catalogue</a>
+            </div>
+
+            <div id="cart-content" class="hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="md:col-span-2">
+                        <div class="bg-gray-50 rounded-lg shadow overflow-hidden">
+                            <div class="grid grid-cols-12 bg-gray-100 p-4 font-semibold text-gray-700">
+                                <div class="col-span-6">Produit</div>
+                                <div class="col-span-2 text-center">Prix</div>
+                                <div class="col-span-2 text-center">Quantité</div>
+                                <div class="col-span-2 text-center">Total</div>
+                            </div>
+                            <div id="cart-items">
+                                <!-- Cart items will be added here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="bg-gray-50 rounded-lg shadow p-6 sticky top-4">
+                            <h3 class="text-xl font-bold mb-4">Récapitulatif</h3>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex justify-between">
+                                    <span>Sous-total</span>
+                                    <span id="cart-subtotal">0 €</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Livraison</span>
+                                    <span>Gratuite</span>
+                                </div>
+                                <div class="border-t pt-3 flex justify-between font-bold text-lg">
+                                    <span>Total</span>
+                                    <span id="cart-total">0 €</span>
+                                </div>
+                            </div>
+                            <button id="clear-cart-btn"
+                                class="w-full bg-red-500 text-white py-3 rounded hover:bg-red-600 transition mb-3">
+                                Vider le panier
+                            </button>
+                            <button id="checkout-btn"
+                                class="w-full bg-green-500 text-white py-3 rounded hover:bg-green-600 transition">
+                                Passer la commande
+                            </button>
+                            <p class="text-xs text-gray-500 mt-2 text-center">Vous serez redirigé vers notre page de
+                                contact pour finaliser votre commande</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-12 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Notre Histoire</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-gray-600 mb-4">
+                        Hello shop est né de la passion de trois artisans pour les objets faits main. Depuis
+                        2015, nous créons des pièces uniques qui racontent une histoire.
+                    </p>
+                    <p class="text-gray-600 mb-4">
+                        Chaque produit dans notre boutique est fabriqué avec soin dans notre atelier situé en Provence,
+                        en utilisant des matériaux naturels et des techniques traditionnelles.
+                    </p>
+                    <p class="text-gray-600">
+                        Notre mission est de préserver l'artisanat français tout en proposant des designs modernes qui
+                        s'intègrent parfaitement dans votre quotidien.
+                    </p>
+                </div>
+                <div class="rounded-lg overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                        alt="Atelier d'artisanat" class="w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-12 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Contactez-nous</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Nos coordonnées</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt text-blue-500 mr-3"></i>
+                            <span class="text-gray-600">+33 4 90 12 00 00</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-blue-500 mr-3"></i>
+                            <span class="text-gray-600">contact@helloshop.fr</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-blue-500 mr-3"></i>
+                            <div>
+                                <p class="text-gray-600">Lundi - Vendredi: 9h - 18h</p>
+                                <p class="text-gray-600">Samedi: 10h - 17h</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-semibold mb-3">Suivez-nous</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-600 hover:text-blue-500 transition"><i
+                                    class="fab fa-facebook-f text-xl"></i></a>
+                            <a href="#" class="text-gray-600 hover:text-blue-500 transition"><i
+                                    class="fab fa-instagram text-xl"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Envoyez-nous un message</h3>
+                    <div id="contact-success" class="hidden bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded mb-4">Votre demande a bien été envoyée.</div>
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-1">Nom</label>
+                            <input type="text" id="name" required
+                                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" required
+                                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-700 mb-1">Sujet</label>
+                            <input type="text" id="subject" required
+                                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-1">Message</label>
+                            <textarea id="message" rows="4" required
+                                class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        <button type="submit"
+                            class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Hello shop</h3>
+                    <p class="text-gray-400">Des objets artisanaux uniques fabriqués avec passion en Provence.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Liens utiles</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#catalogue" class="text-gray-400 hover:text-white transition">Catalogue</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">À propos</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                        <li><a href="mentions-legales.html" class="text-gray-400 hover:text-white transition">Mentions légales</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Moyens de paiement</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <i class="fab fa-cc-visa text-2xl text-gray-400"></i>
+                        <i class="fab fa-cc-mastercard text-2xl text-gray-400"></i>
+                        <i class="fab fa-cc-paypal text-2xl text-gray-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-2">Abonnez-vous pour recevoir nos nouveautés</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Votre email"
+                            class="px-4 py-2 rounded-l text-gray-800 w-full focus:outline-none">
+                        <button class="bg-blue-500 px-4 py-2 rounded-r hover:bg-blue-600 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2025 Hello shop. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
